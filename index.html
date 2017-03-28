@@ -7,31 +7,26 @@
   </head>
   <body>
     <h1>DCC104 - Exemplo 01</h1>
-    <canvas></canvas>
+    <canvas width="400" height="500"></canvas>
     <script>
       var eCanvas = document.getElementsByTagName("canvas")[0];
       var ctx = eCanvas.getContext("2d");
-
-
 
       var fps = 120;
       var atual = new Date();
       var anterior = new Date();
       var dt = 1/fps;
 
-      var azul = new Sprite();
+      var naveAzul = new Sprite();
       var fuel = 100;
       var acelerandoX = false;
       var acelerandoY = false;
-      var vermelho = new Sprite();
-      vermelho.x = 150;
-      vermelho.y = 100;
-      vermelho.color = "red";
+
+      var pistaPouso = new Sprite();
+      pistaPouso.x = 0;
+      pistaPouso.y = 400;
 
       desenha();
-
-
-
 
       function desenha(){
         requestAnimationFrame(desenha);
@@ -51,18 +46,17 @@
         if(acelerandoY && fuel>0){
           fuel = fuel - 15*dt;
         }
-        azul.mover(dt);
-        vermelho.mover(dt);
-        azul.desenhar(ctx);
-        vermelho.desenhar(ctx);
 
-        if(azul.y>150){
-          azul.y = 0;
-          azul.vy = 0;
-          azul.ay = 0;
-          azul.x = 150;
-          fuel = 100;
-        }
+        pistaPouso.desenharRetangulo(ctx);
+
+        naveAzul.mover(dt);
+        naveAzul.desenharQuadrado(ctx);
+
+        naveAzul.colisaoLargura(ctx);
+        naveAzul.colisaoAltura(ctx);
+
+        naveAzul.pouso(ctx);
+
         anterior = atual;
       }
 
@@ -74,19 +68,19 @@
             break;
             */
           case 37:
-            azul.ax = -100;
+            naveAzul.ax = -100;
             acelerandoX = true;
             break;
           case 38:
-            azul.ay = -100;
+            naveAzul.ay = -100;
             acelerandoY = true;
             break;
           case 39:
-            azul.ax = +100;
+            naveAzul.ax = +100;
             acelerandoX = true;
             break;
           case 40:
-            azul.ay = +100;
+            naveAzul.ay = +100;
             acelerandoY = true;
             break;
           default:
@@ -95,20 +89,30 @@
       });
       addEventListener("keyup", function(e){
         switch (e.keyCode) {
+          case 32:
+            naveAzul.y = 0;
+            naveAzul.vy = 0;
+            naveAzul.vx = 0;
+            naveAzul.ay = 0;
+            naveAzul.ax = 0;
+            naveAzul.x = 192.5;
+            naveAzul.y = 0;
+            fuel = 100;
+            break;
           case 37:
-            azul.ax = 0;
+            naveAzul.ax = 0;
             acelerandoX = false;
             break;
           case 38:
-            azul.ay = 0;
+            naveAzul.ay = 0;
             acelerandoY = false;
             break;
           case 39:
-            azul.ax = 0;
+            naveAzul.ax = 0;
             acelerandoX = false;
             break;
           case 40:
-            azul.ay = 0;
+            naveAzul.ay = 0;
             acelerandoY = false;
             break;
           default:
