@@ -63,10 +63,6 @@
       addEventListener("keydown", function(e){
         if(fuel<=0) return;
         switch (e.keyCode) {
-          /*case 32:
-            azul.vy = azul.vy -80;
-            break;
-            */
           case 37:
             naveAzul.ax = -100;
             acelerandoX = true;
@@ -97,6 +93,8 @@
             naveAzul.ax = 0;
             naveAzul.x = 192.5;
             naveAzul.y = 0;
+            naveAzul.message = "";
+            naveAzul.landing = false;
             fuel = 100;
             break;
           case 37:
