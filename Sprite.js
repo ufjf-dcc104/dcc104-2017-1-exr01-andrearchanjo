@@ -5,6 +5,7 @@ function Sprite(){
   this.vy = 0;
   this.ax = 0;
   this.ay = 0;
+  this.g =  Math.floor(Math.random() * (80 - 40) + 40);
   this.color = "blue";
   this.landing = false;
   this.message = "";
@@ -19,7 +20,7 @@ Sprite.prototype.desenharQuadrado = function (ctx) {
 
 Sprite.prototype.mover = function (dt) {
   this.vx = this.vx + this.ax*dt;
-  this.vy = this.vy + (this.ay+60)*dt;
+  this.vy = this.vy + (this.ay+this.g)*dt;
   this.x = this.x + this.vx*dt;
   this.y = this.y + this.vy*dt;
 };
